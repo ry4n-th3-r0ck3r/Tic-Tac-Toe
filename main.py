@@ -8,6 +8,16 @@ def print_board(board):
     print("---------")
     print(f"{board[6]} | {board[7]} | {board[8]}")
 
+#Function that lets players choose X or O
+def choose_player_marker():
+    while True:
+        marker = input("Do you want to be X or O? ").upper()
+
+        if marker == "X" or marker == "O":
+            return marker
+
+        print("Please choose X or O.")
+
 #Function that appears to clear the screen and keeps just the current board.
 def clear_screen():
     print("\n" * 50)
@@ -37,7 +47,7 @@ def get_player_move(board, player):
         break
 
 #Function that determines computer's move.
-def computer_move(board):
+def computer_move(board,computer_marker):
     available_spots = []
 
     for spot in board:
@@ -45,7 +55,7 @@ def computer_move(board):
             available_spots.append(spot)
 
     choice = random.choice(available_spots)
-    board[int(choice) - 1] = "O"
+    board[int(choice) - 1] = computer_marker
 
 #Function for determining win conditions.
 def check_winner(board):
@@ -66,39 +76,65 @@ def check_winner(board):
         if board[a] == board[b] == board[c]:
             return board[a]
 
-    return None
+    for spot in board:
+        if spot != "X" and spot != "O":
+            return None
+
+    return "DRAW"
 
 #Main function that determines the hub for actions taken.
 def main():
     board = ["1", "2", "3",
              "4", "5", "6",
              "7", "8", "9"]
-    current_player = "X"
 
     game_over = False
+
+    player_marker = choose_player_marker()
+
+    if player_marker == "X":
+        computer_marker = "O"
+    else:
+        computer_marker = "X"
 
     while not game_over:
         clear_screen()
         print_board(board)
 
-        get_player_move(board, current_player)
+        get_player_move(board, player_marker)
         winner = check_winner(board)
 
         if winner:
             clear_screen()
             print_board(board)
-            print(f"{winner} wins!")
-            game_over = True
-            continue
+            if check_winner(board) == "DRAW":
+                clear_screen()
+                print_board(board)
+                print("Draw!")
+                game_over = True
+                continue
+            else:
+                print(f"{winner} wins!")
+                game_over = True
+                continue
 
-        computer_move(board)
+
+        computer_move(board, computer_marker)
         winner = check_winner(board)
 
         if winner:
             clear_screen()
             print_board(board)
-            print(f"{winner} wins!")
-            game_over = True
+            if check_winner(board) == "DRAW":
+                clear_screen()
+                print_board(board)
+                print("Draw!")
+                game_over = True
+                continue
+            else:
+                print(f"{winner} wins!")
+                game_over = True
+                continue
 
 if __name__ == "__main__":
     main()
