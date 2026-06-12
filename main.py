@@ -8,6 +8,19 @@ def print_board(board):
     print("---------")
     print(f"{board[6]} | {board[7]} | {board[8]}")
 
+#Function that lets players play again
+def play_again():
+    while True:
+        choice = input("Play again? Yes or no? ").lower()
+
+        if choice == "yes" or choice == "y":
+            return True
+
+        if choice == "no" or choice == "n":
+            return False
+
+        print("Please enter yes or no.")
+
 #Function that lets players choose X or O
 def choose_player_marker():
     while True:
@@ -84,57 +97,62 @@ def check_winner(board):
 
 #Main function that determines the hub for actions taken.
 def main():
-    board = ["1", "2", "3",
-             "4", "5", "6",
-             "7", "8", "9"]
+    play = True
 
-    game_over = False
+    while play:
+        board = ["1", "2", "3",
+                 "4", "5", "6",
+                 "7", "8", "9"]
 
-    player_marker = choose_player_marker()
+        game_over = False
 
-    if player_marker == "X":
-        computer_marker = "O"
-    else:
-        computer_marker = "X"
+        player_marker = choose_player_marker()
 
-    while not game_over:
-        clear_screen()
-        print_board(board)
+        if player_marker == "X":
+            computer_marker = "O"
+        else:
+            computer_marker = "X"
 
-        get_player_move(board, player_marker)
-        winner = check_winner(board)
-
-        if winner:
+        while not game_over:
             clear_screen()
             print_board(board)
-            if check_winner(board) == "DRAW":
+
+            get_player_move(board, player_marker)
+            winner = check_winner(board)
+
+            if winner:
                 clear_screen()
                 print_board(board)
-                print("Draw!")
+
+                if winner == "DRAW":
+                    print("Draw!")
+                else:
+                    print(f"{winner} wins!")
+
                 game_over = True
                 continue
-            else:
-                print(f"{winner} wins!")
-                game_over = True
-                continue
 
+            computer_move(board, computer_marker)
+            winner = check_winner(board)
 
-        computer_move(board, computer_marker)
-        winner = check_winner(board)
-
-        if winner:
-            clear_screen()
-            print_board(board)
-            if check_winner(board) == "DRAW":
+            if winner:
                 clear_screen()
                 print_board(board)
-                print("Draw!")
+
+                if winner == "DRAW":
+                    print("Draw!")
+                else:
+                    print(f"{winner} wins!")
+
                 game_over = True
                 continue
-            else:
-                print(f"{winner} wins!")
-                game_over = True
-                continue
+
+        play = play_again()
+
+        if play == False:
+            print("Good game. Goodbye!")
+        else:
+            print("Okay, let's go again!")
 
 if __name__ == "__main__":
     main()

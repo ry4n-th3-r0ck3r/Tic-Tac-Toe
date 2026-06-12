@@ -11,9 +11,10 @@ Version 2.0
 - Input validation
 - Win condition detection including draw
 - Player choice of X or O
+- Replay Functionality
 
-## Future Improvements
+## Planned Future Improvements
 
 - Difficulty Selection
-- Smarter AI
-- Replay functionality
+- Smarter Computer
+- GUI Interface
