@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-A console-based Tic Tac Toe game written in Python.
+A console based Tic Tac Toe game written in Python.
 
 Version 2.5
 
