@@ -2,7 +2,7 @@
 
 A console-based Tic Tac Toe game written in Python.
 
-Version 2.0
+Version 2.5
 
 ## Current Features
 
