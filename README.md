@@ -2,7 +2,7 @@
 
 A console-based Tic Tac Toe game written in Python.
 
-Version 2.75
+Version 2.5
 
 ## Current Features
 
@@ -10,12 +10,11 @@ Version 2.75
 - Random computer moves
 - Input validation
 - Win condition detection including draw
-- Player choice of X or O (X always goes first)
+- Player choice of X or O
 - Replay Functionality
+
+## Planned Future Improvements
+
 - Difficulty Selection
-- Cleaner text lines
-
-## Planned Future Improvements for 3.0
-
-- Smarter Computer (With respect to difficulty settings)
+- Smarter Computer
 - GUI Interface
