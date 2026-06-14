@@ -2,7 +2,7 @@
 
 A console-based Tic Tac Toe game written in Python.
 
-Version 2.75
+Version 3.0
 
 ## Current Features
 
@@ -13,8 +13,8 @@ Version 2.75
 - Player choice of X or O (X ALWAYS goes first)
 - Replay Functionality
 - Difficulty Selection
-
-## Planned Future Improvements (Version 3.0)
-
 - Smarter Computer
+
+## Planned Future Improvements (Version 4.0)
+
 - GUI Interface

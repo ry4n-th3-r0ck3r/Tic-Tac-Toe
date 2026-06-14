@@ -59,6 +59,22 @@ def get_player_move(board, player):
         board[index] = player
         break
 
+#Function that computer uses to check for possible winning moves
+def find_winning_move(board, marker):
+    for spot in board:
+        if spot != "X" and spot != "O":
+            index = int(spot) - 1
+
+            board[index] = marker
+
+            if check_winner(board) == marker:
+                board[index] = spot
+                return index
+
+            board[index] = spot
+
+    return None
+
 #Function for computer playing on easy mode.
 def easy_computer_move(board, computer_marker):
     available_spots = []
@@ -72,25 +88,51 @@ def easy_computer_move(board, computer_marker):
 
 #Function for computer playing on medium mode.
 def medium_computer_move(board, computer_marker,player_marker):
-     available_spots = []
+    winning_move = find_winning_move(board, computer_marker)
 
-     for spot in board:
-         if spot != "X" and spot != "O":
-             available_spots.append(spot)
+    if winning_move is not None:
+        board[winning_move] = computer_marker
+        return
 
-     choice = random.choice(available_spots)
-     board[int(choice) - 1] = computer_marker
+    blocking_move = find_winning_move(board, player_marker)
+
+    if blocking_move is not None:
+        board[blocking_move] = computer_marker
+        return
+
+    easy_computer_move(board, computer_marker)
 
 #Function for determining computer playing on hard mode.
 def hard_computer_move(board, computer_marker, player_marker):
-    available_spots = []
+    winning_move = find_winning_move(board, computer_marker)
 
-    for spot in board:
-        if spot != "X" and spot != "O":
-            available_spots.append(spot)
+    if winning_move is not None:
+        board[winning_move] = computer_marker
+        return
 
-    choice = random.choice(available_spots)
-    board[int(choice) - 1] = computer_marker
+    blocking_move = find_winning_move(board, player_marker)
+
+    if blocking_move is not None:
+        board[blocking_move] = computer_marker
+        return
+
+    if board[4] != "X" and board[4] != "O":
+        board[4] = computer_marker
+        return
+
+    corners = [0, 2, 6, 8]
+    available_corners = []
+
+    for corner in corners:
+        if board[corner] != "X" and board[corner] != "O":
+            available_corners.append(corner)
+
+    if available_corners:
+        choice = random.choice(available_corners)
+        board[choice] = computer_marker
+        return
+
+    easy_computer_move(board, computer_marker)
 
 #Function that determines computer's move.
 def computer_move(board, computer_marker, player_marker, difficulty):
